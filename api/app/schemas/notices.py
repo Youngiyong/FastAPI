@@ -19,6 +19,6 @@ class NoticeUpdate(NoticeBase):
     pass
 
 
-class NoticeRsponse(NoticeBase):
+class NoticeResponse(NoticeBase):
     class Config:
         orm_mode = True
