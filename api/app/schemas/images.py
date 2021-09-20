@@ -5,20 +5,23 @@ from pydantic import BaseModel
 
 class ImageCreate(BaseModel):
     class Config:
-        arbitrary_types_allowed = True
-        schema_extra = [{
+        schema_extra = {
             "example": {
-                "file": "multipart-form"
+                "filename": "20210921015584057373",
+                "full_path": "members/20210921015584057373"
             }
-        }]
+        }
 
 
 class ImageResponse(BaseModel):
+    filename: str
+    full_path: str
+
     class Config:
-        arbitrary_types_allowed = True
-        schema_extra = [{
+        schema_extra = {
             "example": {
-                "image" : "https://s3.aws.com/members/example.png",
+                "filename": "20210921015584057373",
+                "full_path": "members/20210921015584057373"
             }
-        }]
+        }
 
