@@ -17,11 +17,13 @@ class Blogs(Base):
     deleted_at = Column(DateTime, nullable=True)
     member_id = Column(Integer, ForeignKey("members.id"))
     # member = relationship("Members", back_populates="id")
+    blog_likes = relationship("BlogLikes", back_populates="blogs")
 
 
 class BlogLikes(Base):
+    __tablename__ = "blog_likes"
     id = Column(Integer, primary_key=True, index=True)
     blog_id = Column(Integer, ForeignKey("blogs.id"))
     member_id = Column(Integer, ForeignKey("members.id"))
     created_at = Column(DateTime, nullable=False, default=func.utc_timestamp())
-
+    blogs = relationship("Blogs", back_populates="blog_likes")
