@@ -36,11 +36,11 @@ def get_blog(id: int, db: Session = Depends(get_db)) -> Any:
 
 
 @router.post("", status_code=status.HTTP_201_CREATED, response_model=schemas.BlogResponse)
-def create_blog(*, db: Session = Depends(get_db), paylod: schemas.BlogCreate) -> Any:
+def create_blog(*, db: Session = Depends(get_db), payload: schemas.BlogCreate) -> Any:
     """
     Create new Blog.
     """
-    blog = crud.blog.create(db, payload=paylod)
+    blog = crud.blog.create(db, payload=payload)
     return blog
 
 
