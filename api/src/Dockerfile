@@ -8,21 +8,23 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# copy requirements file
-COPY ./requirements.txt /usr/src/app/requirements.txt
-
 # install dependencies
-RUN apt-get update
+RUN apt-get update \
+    && apt-get -y install netcat gcc \
+    && apt-get clean
 
 RUN python --version
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 RUN python3 get-pip.py
-#RUN pip install --upgrade pip
-#
-#RUN pip install -r requirements.txt
-RUN /bin/bash -c "source /venv/bin/activate; pip install -r requirements.txt"
-RUN ls -l /venv/bin/
-RUN source /venv/bin/activate
+RUN pip install --upgrade pip
+
+# copy requirements file
+COPY ./requirements.txt /usr/src/app/requirements.txt
 
 # copy project
 COPY . /usr/src/app/
+
+RUN python3 -m venv venv
+RUN ls -al
+RUN . venv/bin/activate && pip install -r requirements.txt
+RUN ls -al venv/
